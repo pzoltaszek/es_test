@@ -1,0 +1,113 @@
+.loadingRectangleBody {
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  border: 1px solid black;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */ 
+  animation: showLoadingRectangle 0.8s 1;
+}
+  .LoadingRectangleDiv {
+    width: 150px;
+    height: 150px;
+    background-color: white; /*#3c5586; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: black;
+    text-align: center;
+    position: absolute;
+    background-color: white;
+    border: 1px solid black; 
+    left:calc(50% - 75px);
+    top:calc(50% - 75px);
+  }
+
+  .line_h {
+    height: 2px;
+    background: black;
+    position: fixed;
+  }
+  .line_v {
+    width: 2px;
+    background: black;
+    position: fixed;
+  }
+  
+  #line_r{
+    animation: line_r_animation 4s infinite;
+  }
+  
+  #line_l{
+    animation: line_l_animation 4s infinite;
+  }
+  
+  #line_t{
+    animation: line_t_animation 4s infinite;
+  }
+  
+  #line_b{
+    height: 1px;
+    animation: line_b_animation 4s infinite;
+  }
+  
+  
+  
+  @keyframes line_t_animation {
+      0%   {left: calc(50% + 15px); width: 0px; top:calc(50% - 15px);}
+      12%   {left: calc(50% + 15px); width: 0px; top:calc(50% - 15px);}
+      25%   {left: calc(50% + 15px); width: 0px; top:calc(50% - 15px);}
+      37%   {left: calc(50% - 15px); width: 30px; top:calc(50% - 15px);}
+      50%   {left: calc(50% - 15px); width: 30px; top:calc(50% - 15px);}
+      62%   {left: calc(50% - 15px); width: 30px; top:calc(50% - 15px);}
+      75%   {left: calc(50% - 15px); width: 30px; top:calc(50% - 15px);}
+      87%   {left: calc(50% - 15px); width: 0px; top:calc(50% - 15px);}
+      100%   {left: calc(50% + 15px); width: 0px; top:calc(50% - 15px);}
+  }
+  
+  
+  @keyframes line_b_animation {
+      0%   {left: calc(50% - 15px); width: 0px; top:calc(50% + 15px);}
+      12%   {left: calc(50% - 15px); width: 30px; top:calc(50% + 15px);}
+      25%   {left: calc(50% - 15px); width: 30px; top:calc(50% + 15px);}
+      37%   {left: calc(50% - 15px); width: 30px; top:calc(50% + 15px);}
+      50%   {left: calc(50% - 15px); width: 30px; top:calc(50% + 15px);}
+      62%   {left: calc(50% + 15px); width: 0px; top:calc(50% + 15px);}
+      75%   {left: calc(50% - 15px); width: 0px; top:calc(50% + 15px);}
+      87%   {left: calc(50% - 15px); width: 0px; top:calc(50% + 15px);}
+      100%   {left: calc(50% - 15px); width: 0px; top:calc(50% + 15px);}
+  }
+  
+  @keyframes line_l_animation {
+    0%   {top: calc(50% - 15px); height: 0px; left: calc(50% - 15px);}
+    12%   {top: calc(50% - 15px); height: 0px; left: calc(50% - 15px);}
+    25%   {top: calc(50% - 15px); height: 0px; left: calc(50% - 15px);}
+    37%   {top: calc(50% - 15px); height: 0px; left: calc(50% - 15px);}
+    50%   {top: calc(50% - 15px); height: 30px; left: calc(50% - 15px);}
+    62%   {top: calc(50% - 15px); height: 30px; left: calc(50% - 15px);}
+    75%   {top: calc(50% - 15px); height: 30px; left: calc(50% - 15px);}
+    87%   {top: calc(50% - 15px); height: 30px; left:calc(50% - 15px);}
+    100%   {top: calc(50% + 15px); height: 0px; left:calc(50% - 15px);}
+  }
+  
+  @keyframes line_r_animation {
+    0%   {top: calc(50% + 15px); height: 0px; left: calc(50% + 15px);}
+    12%   {top: calc(50% + 15px); height: 0px; left: calc(50% + 15px);}
+    25%   {top: calc(50% - 15px); height: 30px; left: calc(50% + 15px);}
+    37%   {top: calc(50% - 15px); height: 30px; left: calc(50% + 15px);}
+    50%   {top: calc(50% - 15px); height: 30px; left: calc(50% + 15px);}
+    62%   {top: calc(50% - 15px); height: 30px; left: calc(50% + 15px);}
+    75%   {top: calc(50% - 15px); height: 0px; left: calc(50% + 15px);}
+    87%   {top: calc(50% + 15px); height: 0px; left: calc(50% + 15px);}
+    100%   {top: calc(50% + 15px); height: 0px; left: calc(50% + 15px);}
+  }
+
+  @keyframes showLoadingRectangle {
+    0% {opacity: 0.0};
+    100%{opacity: 1.0};
+}

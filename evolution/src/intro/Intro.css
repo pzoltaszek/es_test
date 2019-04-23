@@ -1,0 +1,113 @@
+
+/* The Modal (background) */
+.intro {
+    /* display: none; Hidden by default */
+    position: fixed; /* Stay in place */
+    /* z-index: 2;  */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    border: 1px solid black;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    /* background-color: rgb(0,0,0); Fallback color */
+    background-color: rgba(0,0,0); /* Black w/ opacity */
+    animation: showIntro 2s 1;
+}
+
+/* Modal Content */
+.intro-content{
+    position: fixed; 
+    background-color: white;
+    padding: 20px;
+    left: 10%;
+    top: 10%;
+    border: 1px solid black;
+    width: 30%;
+    height: 20%;
+    animation: showContent 8s 1;
+    /* animation: showContent 6s 1; */
+    /* animation-delay: 2s; */
+}
+
+.intro-content2{
+    position: fixed; 
+    background-color: white;
+    padding: 20px;
+    left: 40%;
+    top: 40%;
+    border: 1px solid black;
+    width: 10%;
+    height: 10%;
+    animation: showContent2 10s 1;
+    /* animation: showContent 6s 1; */
+    /* animation-delay: 2s; */
+}
+
+.intro-content3{
+    position: fixed; 
+    background-color: white;
+    padding: 20px;
+    left: 60%;
+    top: 60%;
+    border: 1px solid black;
+    width: 15%;
+    height: 15%;
+    animation: showContent3 12s 1;
+    /* animation: showContent 6s 1; */
+    /* animation-delay: 2s; */
+}
+
+/* The Close Button */
+.close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+@keyframes showIntro {
+    0% {opacity: 0.0};
+    100%{opacity: 1.0;};
+}
+
+@keyframes showContent {
+    0% {visibility: hidden;
+        opacity: 0.0;};
+    30% {visibility: hidden;
+        opacity: 0.0;}
+        31% {visibility: visible;
+            opacity: 0.0;}
+    100% {visibility: visible;
+        opacity: 1.0;};
+}
+
+@keyframes showContent2 {
+    0% {visibility: hidden;
+        opacity: 0.0;};
+    40% {visibility: hidden;
+        opacity: 0.0;}
+        41% {visibility: visible;
+            opacity: 0.0;}
+    100% {visibility: visible;
+        opacity: 1.0;};
+}
+
+@keyframes showContent3 {
+    0% {visibility: hidden;
+        opacity: 0.0;};
+    50% {visibility: hidden;
+        opacity: 0.0;}
+        51% {visibility: visible;
+            opacity: 0.0;}
+    100% {visibility: visible;
+        opacity: 1.0;};
+}
