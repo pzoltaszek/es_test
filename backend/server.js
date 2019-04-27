@@ -34,7 +34,9 @@ app.use(logger("dev"));
 // this method fetches all available data in our database
 router.get("/getUser", (req, res) => {
   User.find((err, user) => {
-    if (err) return res.json({ success: false, error: err });
+    if (err) {
+      return res.json({ success: false, error: err });
+    } 
     return res.json({ success: true, data: user });
   });
 });
@@ -43,8 +45,10 @@ router.get("/getUser", (req, res) => {
 // this method overwrites existing data in our database
 router.post("/updateUser", (req, res) => {
   const { id, update } = req.body;
-  User.findOneAndUpdate(id, update, err => {
-    if (err) return res.json({ success: false, error: err });
+  User.findByIdAndUpdate(id, update, err => {
+    if (err) {
+      return res.json({ success: false, error: err });
+    }
     return res.json({ success: true });
   });
 });
@@ -56,8 +60,11 @@ router.delete("/deleteUser", (req, res) => {
   if(id === undefined || id <0 || id ===null){
     return res.json({ success: false});
   }
-  User.findOneAndDelete(id, err => {
+  User.findByIdAndDelete(id, err => {
     if (err) return res.send(err);
+    //return res.json({ success: true });
+  })
+  .then(function(){
     return res.json({ success: true });
   });
 });

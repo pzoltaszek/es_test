@@ -26,7 +26,7 @@ class Modal extends Component {
 {/* Modalcontent: */}
 <div className="modal-content">
   <span className="close" onClick={this.changeModalStatus}>&times;</span>
-  <p>Some text in the Modal..</p>
+  <p>User added or deleted..</p>
 </div>
 
 </div>
