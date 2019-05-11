@@ -1,12 +1,16 @@
-.loginInput, select {   
+.loginInput {   
     font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
       monospace;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    border-top: unset;
-    border-left: unset;
-    border-right: unset;
-    border-bottom: 1 solid black;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: 1px solid black;
+  }
+  .loginInput:focus {
+    outline: none;
+    border-bottom: 2px solid black;
   }
 
   .hrLoginBottom {
@@ -14,7 +18,7 @@
     height: 1px;
     background-color: black;
     position:'absolute'; 
-    border-bottom: 1 solid black;
+
   }
 
   .plusButton {
@@ -32,9 +36,11 @@
   .plusButton:active,
   .loginButton:active,
   .loginButton:focus {
+    text-decoration: none;
     color: #282c34;
     background-color: white;
     border: 1px, solid, black;
+    outline: none;
   }
 
   .plusButton:hover,

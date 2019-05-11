@@ -20,20 +20,19 @@ class Intro extends Component {
       render() {
         if(this.props.introOpen){
         return (
-    <div>
-        <div id="myModal" className="intro">
-        
-        </div>
-        <div className="intro-content">
-        <span className="close" onClick={this.closeIntro}>&times;</span>
-            <p>Intro content</p>
-        </div>
-        <div className="intro-content2">
-            <p>Intro content2</p>
-        </div>
-        <div className="intro-content3">
-            <p>Intro content3</p>
-        </div>
+        <div className="intro">
+            <div className="intro-content">
+            <div className="intro-content1">
+                <span className="close" onClick={this.closeIntro}>&times;</span>
+                <p>Intro content</p>
+            </div>
+            <div className="intro-content2">
+                <p>Intro content2</p>
+            </div>
+            <div className="intro-content3">
+                <p>Intro content3</p>
+            </div>
+            </div>
     </div>   
         );
     } else return null;

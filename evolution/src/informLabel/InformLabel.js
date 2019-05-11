@@ -1,57 +1,100 @@
 import React from 'react';
-// import './App.css';
-const list = [ {
-    id: 1,
-    text: "first"
-},
-{
-    id: 2,
-    text: "second"
-},
-{
-    id: 3,
-    text: "aaaaaaaaaaaaaa sdadasd"
-},
-{
-    id: 4,
-    text: "dsdsds dsdsadd "
-}];
+import './InformLabel.css';
+import { connect } from "react-redux";
+import { addToInformList } from '../actions';
+import I18n from '../utils/I18n';
 
 var style = {
-    fontSize: '0.6em',
+    fontSize: '0.8em',
     color: 'black'
 };
-
 
 class InformLabel extends React.Component {
     constructor (props) {
         super(props);
-        this.state = { informList: [] 
+        this.state = { 
+            informList: [],
+            informListSlideOpen: false
         };
     }
-componentWillMount() {
-    this.setState({informList: list});
+
+informListSlideopen = () => {
+    let tempStatus = this.state.informListSlideOpen;
+    this.setState({informListSlideOpen: !tempStatus});
 }
 
-renderUsers() {
-    if (this.state.informList.length >0) {
-        return(
-            <ol>
-                {this.state.informList.map(a=> <li key={a.id}>{a.text}</li>)}
-            </ol>
-        );
+renderList(classForInformDiv) {
+    let list = this.props.informList;
+    if (!list || list.length < 0) {
+        return null;
     }
-    else return <p></p>
+    if(list.length > 5) {
+        list = list.slice(list.length-5, list.length+1);   
+    }
+    return(
+        <div className={classForInformDiv} style={style}>
+            <ul>
+                {list.map(a=> <li key={a.id}>{a.text}</li>)}
+            </ul>
+        </div>
+        );
 };
 
+renderLastElement() {
+    let length = this.props.informList.length;
+    if (length > 0) {
+        let last = this.props.informList[length-1];
+        return (   
+<div style={style}> {last.text}</div>
+        );
+    } else return null;
+}
+
+renderInformList() {
+    let classForInformDiv ='';
+    let buttonUp = '^';
+    if (this.state.informListSlideOpen) {
+        classForInformDiv = "informListSlideOpen";
+        return(
+            <div>
+                {this.renderList(classForInformDiv)}
+                <div className="informLabelslideContent">
+                    <button className="informLabelslideOpen" onClick={this.informListSlideopen}>&#709;</button>
+                    {this.renderLastElement()}
+                </div>
+            </div>
+        ) 
+    } else {
+        classForInformDiv = "informListSlideHide";
+        return (
+            <div>
+               {this.renderList(classForInformDiv)}
+                <div className="informLabelslideContent">
+                    <button className="informLabelslideOpen" onClick={this.informListSlideopen}>{buttonUp}</button>
+                    {this.renderLastElement()}
+                </div>
+            </div>
+        )
+    }
+};
+
+
 render(){
-    return(
-        <div className="informLabel" style={style}>
-            {this.renderUsers()}
-        </div>
+    return(      
+        <div className="informLabelMain">{this.renderInformList()}</div>
     );
-
-}
 }
 
-export default InformLabel;
+}
+
+const mapStateToProps = (state) => {
+    return {
+        informList: state.addToInformList //reducer
+    }
+};
+const mapDispatchToProps = (dispatch) => {
+    return {
+        addToInformList: (info) => dispatch(addToInformList(info)) //akcja
+    };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(InformLabel);
