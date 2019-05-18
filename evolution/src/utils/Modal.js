@@ -6,7 +6,6 @@ class Modal extends Component {
         super (props)
         this.state = { 
             modalOpen: props.modalOpen,
-
         };
       }
 
@@ -27,7 +26,7 @@ class Modal extends Component {
     render() {
         if(this.props.modalOpen){
             return (
-                <div id="myModal" className="modal">
+                <div className="modal">
                     <div className="modal-content" style={this.props.modalStyle}>
                         <div className="closingSquare">
                             <span className="closeModalX" onClick={this.changeModalStatus}>&times;</span>

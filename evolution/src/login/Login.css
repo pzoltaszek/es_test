@@ -1,58 +1,72 @@
 .loginInput {   
-    font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-      monospace;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    border-top: none;
-    border-left: none;
-    border-right: none;
-    border-bottom: 1px solid black;
-  }
-  .loginInput:focus {
-    outline: none;
-    border-bottom: 2px solid black;
-  }
-
-  .hrLoginBottom {
-    width: 100%;
-    height: 1px;
-    background-color: black;
-    position:'absolute'; 
-
-  }
-
-  .plusButton {
-    position: absolute;
-    left: 98%;
-    top: 0.5%;
-    font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
-    color: black;
-    border: 1px solid black;
-    background-color: white;
-  }
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: 1px solid black;
+}
+
+.loginInput:focus {
+  outline: none;
+  border-bottom: 2px solid black;
+}
+
+.loginInputWrong:focus{
+  outline: none;
+  border-bottom: 2px solid red;
+}
+
+.loginInputWrong {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: 2px solid red;
+}
+
+.hrLoginBottom {
+  width: 100%;
+  height: 1px;
+  background-color: black;
+  /* position: absolute;  */
+}
+
+.plusButton {
+  position: absolute;
+  left: 98%;
+  top: 0.5%;
+}
+
+.loginWelcome {
+  padding-bottom: 0.5%
+}
   
-  .plusButton:focus,
-  .plusButton:active,
-  .loginButton:active,
-  .loginButton:focus {
-    text-decoration: none;
-    color: #282c34;
-    background-color: white;
-    border: 1px, solid, black;
-    outline: none;
-  }
+.plusButton:focus,
+.plusButton:active,
+.loginButton:active,
+.loginButton:focus {
+  text-decoration: none;
+  color: #282c34;
+  background-color: white;
+  outline: none;
+}
 
-  .plusButton:hover,
-  .loginButton:hover {
-    outline: #282c34 auto 5px;
-  }
+.plusButton:hover,
+.loginButton:hover {
+  outline: #282c34 auto 5px;
+}
 
-  .loginButton {
-    font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+.loginButton {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
-    color: black;
-    border: 1px solid black;
-    background-color: white;
-    margin: 1px;
-  }
+  color: black;
+  border: 1px solid black;
+  background-color: white;
+  margin: 1px;
+}

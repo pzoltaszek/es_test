@@ -1,0 +1,9 @@
+.adminMenuUsersTable {
+    position: relative;
+    width: 80%;
+    border-collapse: collapse;
+}
+
+.adminMenuUsersTableTr {
+    border-bottom: 1px solid black;
+}

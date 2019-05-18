@@ -1,0 +1,52 @@
+.slideSettings {
+    background-color: white;
+    display: flex;
+    flex-direction: row;
+    align-items: right;
+    justify-content: right;  
+}
+
+.slideSettingsContent2 {
+    position: absolute;
+    margin: none;
+    left: 89.5%;
+    width: 10%;
+    border: 1px solid black;
+    height: 70px;
+    animation: showSlideSettings 0.8s 1;
+}
+
+.slideSettingsContent3 {
+    position: absolute;
+    left: 89.5%;
+    width: 10%;
+    border: 1px solid black;
+    height: 70px;
+    visibility: hidden;
+    animation: hideSlideSettings 0.8s 1;
+}
+
+.settingsButton {
+    position: absolute;
+    left: 98%;
+    top: 0.5%;
+    padding-left: 4px;
+    padding-right: 4px;
+}
+
+.SettingsList:hover {
+font-weight: bold;
+cursor: default;
+}
+
+@keyframes showSlideSettings {
+    0% {clip-path: inset(0px 0% 100% 0px);}
+    100% {clip-path: inset(0px 0% 0% 0px);}
+}
+
+@keyframes hideSlideSettings {
+    0% {clip-path: inset(0px 0% 0% 0px);
+      visibility: visible}
+    100% {clip-path: inset(0px 0% 100% 0px);
+      visibility: hidden}
+}

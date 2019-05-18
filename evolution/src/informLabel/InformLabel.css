@@ -1,45 +1,55 @@
-
-  .informLabelMain {
-    width: 100%;
-    position: fixed;
-    left: 0;
-    top:calc(95% - 75px - 1.2em);
-    height: 70px;
-  }
+.informLabelMain {
+  width: 100%;
+  position: fixed;
+  left: 0;
+  top:calc(95% - 75px - 1.2em);
+  height: 70px;
+}
   
-  .informLabelslideContent {
-    width: 100%;
-    border: 1px solid black;
-    border-bottom: none;
-    position: relative;
-    display: flex;
-    
-  }
+.informLabelslideContent {
+  width: 100%;
+  border: 1px solid black;
+  border-bottom: none;
+  position: relative;
+  display: flex;
+}
 
-  .informListSlideOpen {
-    width: 30%;
-    position: relative;
-    animation: showInformListSlide 0.8s 1;
-    border: 1px solid black;
-  }
+.informListSlideOpen {
+  width: 30%;
+  position: relative;
+  animation: showInformListSlide 0.8s 1;
+  border: 1px solid black;
+}
   
+.informListSlideHide {
+  width: 30%;
+  position: relative;
+  border: 1px solid black;
+  visibility: hidden;
+  animation: hideInformListSlide 0.8s 1;
+}
 
-  .informListSlideHide {
-    width: 30%;
-    position: relative;
-    border: 1px solid black;
-    visibility: hidden;
-    animation: hideInformListSlide 0.8s 1;
-  }
+.lastElement {
+  position: absolute;
+  left: 2%;
+  font-size: 0.8em;
+  color: black;
+  animation: showLastElement 2s 1;
+}
 
-  @keyframes showInformListSlide {
-    0% {clip-path: inset(100% 0% 0% 0px);}
-    100% {clip-path: inset(0px 0% 0% 0px);}
-  }
+@keyframes showLastElement {
+  0% {clip-path: inset(0% 100% 0% 0%);}
+  100% {clip-path: inset(0% 0% 0% 0%);}
+}
 
-  @keyframes hideInformListSlide {
-    0% {clip-path: inset(0px 0% 0% 0px);
-      visibility: visible}
-    100% {clip-path: inset(100% 0% 0% 0px);
-      visibility: hidden}
-  }
+@keyframes showInformListSlide {
+  0% {clip-path: inset(100% 0% 0% 0px);}
+  100% {clip-path: inset(0px 0% 0% 0px);}
+}
+
+@keyframes hideInformListSlide {
+  0% {clip-path: inset(0px 0% 0% 0px);
+    visibility: visible}
+  100% {clip-path: inset(100% 0% 0% 0px);
+    visibility: hidden}
+}

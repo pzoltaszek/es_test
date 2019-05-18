@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import utils from '../utils/Utils';
 import { connect } from "react-redux";
 import { usersFetchData, addToInformList } from "../actions";
+import './ModalAdminMenuTable.css';
 import axios from "axios";
 import I18n from '../utils/I18n';
 
-class ModalAddUser extends Component{
+class ModalAdminMenu extends Component{
     constructor(props) {
         super(props)
         this.state = {
@@ -83,26 +84,41 @@ class ModalAddUser extends Component{
         // });
         this.props.addToInformList(I18n.get('informList.addUser'));
     };
-
-    renderContent() {
-        let inputClassName = '';
-        if(this.state.wrongInput){
-            inputClassName = 'loginInputWrong';
-        } else {
-            inputClassName = 'loginInput';
-        }
+    renderUsersTable() {
         return (
-            <div className="modalAddUser">
-                <h5>Add new user:</h5>
-                <form autoComplete="off" onSubmit={this.confirmNewCredentials} >
-                    <input className={inputClassName} type="text" name="login" placeholder="login" value={this.state.newLoginValue} onChange={this.handleNewLoginChange}></input>
-                    <br></br>
-                    <input className={inputClassName} type="text" name="password" placeholder="password" value={this.state.newPasswordValue} onChange={this.handleNewPasswordChange}></input>
-                    <br></br>
-                    <input className="loginButton" type="submit" value={I18n.get('button.right')}></input>
-                </form>
-            </div>
+            <table className="adminMenuUsersTable">
+                <th>id</th><th>login</th><th>pass</th><th>delete</th>
+                <br></br>
+                {this.props.users.data.map(a=>
+                    <tr className="adminMenuUsersTableTr" key={a.id}>
+                        <td>{a.id}</td>
+                        <td>{a.login}</td>
+                        <td>{a.password}</td>
+                        <td><button>x</button></td>
+                    </tr>)}
+            </table>
         );
+    }
+  
+    renderContent() {
+        if(this.state.users){
+            return (
+                <div className="modalAdminMenu">
+                    {this.renderUsersTable()}
+                    {/* <h5>Add new user:</h5>
+                    <form autoComplete="off" onSubmit={this.confirmNewCredentials} >
+                        <input className="a" type="text" name="login" placeholder="login" value={this.state.newLoginValue} onChange={this.handleNewLoginChange}></input>
+                        <br></br>
+                        <input className="b" type="text" name="password" placeholder="password" value={this.state.newPasswordValue} onChange={this.handleNewPasswordChange}></input>
+                        <br></br>
+                        <input className="loginButton" type="submit" value={I18n.get('button.right')}></input>
+                    </form> */}
+                </div>
+            );
+        } else {
+             return <p>problem with users loading</p>
+        }
+       
     }
 
     render() {
@@ -125,4 +141,4 @@ const mapDispatchToProps = (dispatch) => {
         addToInformList: (info) => dispatch(addToInformList(info))
     };
 };
-export default connect(mapStateToProps, mapDispatchToProps)(ModalAddUser);
+export default connect(mapStateToProps, mapDispatchToProps)(ModalAdminMenu);

@@ -1,11 +1,25 @@
 var I18n = {
-common: {
-    start: 'START'
+button: {
+    start: 'START',
+    up: '^',
+    right: '>',
+    plus: '+',
+    intro: 'INTRO',
 },
 
 informList: {
     welcome: 'Welcome, today is: ',
-    wrongCredentials: 'Wrong credentials'
+    wrongCredentials: 'Wrong credentials',
+    addUser: 'User sucessfully added',
+    loginExists: 'User with such login already exists',
+    wrongPassword: 'Wrong password value for user: ',
+    userLogged: 'Logged successfully. Welcome: ',
+    userLogout: 'User logged out'
+},
+
+dataBase: {
+    userPost: 'http://localhost:3001/api/putUser',
+    userGet: 'http://localhost:3001/api/getUser'
 },
 
 get: function (key) {

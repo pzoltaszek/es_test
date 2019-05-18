@@ -1,180 +1,160 @@
 import React, { Component } from 'react';
 import './Login.css';
 import utils from '../utils/Utils';
-import axios from "axios";
 import { connect } from "react-redux";
-import { usersFetchData, addToInformList } from "../actions";
+import { usersFetchData, addToInformList, isLogged } from "../actions";
 import Modal from '../utils/Modal';
 import ModalAddUser from './ModalAddUser';
+import SettingsMenu from './SettingsMenu';
 import I18n from '../utils/I18n';
+import settings from '../assets/settingsIcon.png';
 
-const url = "http://localhost:3001/api/getUser";
 const modalAddUserStyle = {
     width: '20%',
     height: '30%'
 };
 
 class Login extends Component{
-constructor(props) {
-    super(props)
-    this.state = {
-        loginValue: '',
-        passwordValue: '',
-        modalOpen: false,
+    constructor(props) {
+        super(props)
+        this.state = {
+            loginValue: '',
+            passwordValue: '',
+            modalAddUserOpen: false,
+            wrongInput: false,
+            users:[],
+            adminLogged: true
+        };
     };
-}
 
-componentDidMount() {
-    this.props.fetchData(url);
-}
+    componentDidMount() {
+        this.props.fetchData(I18n.get('dataBase.userGet'));
+        this.setState({users: this.props.users.data});
+    };
 
-confirmCredentials = (event) => {
-    event.preventDefault();
-    let loginValue = this.state.loginValue;
-    let passValue = this.state.passwordValue;
-    if (utils.loginValidator(loginValue) && utils.passwordValidator(passValue)){
-        this.encryptCredential(loginValue, passValue)
+    confirmCredentials = (event) => {
+        event.preventDefault();
+        let loginValue = this.state.loginValue;
+        let passValue = this.state.passwordValue;
+        if (utils.loginValidator(loginValue) && utils.passwordValidator(passValue)){
+            this.confirmLogin(loginValue, passValue)
+        } else {
+            this.credentialsNotconfirmed();
+        }
+        this.setState({
+            loginValue: '',
+            passwordValue: ''
+        }); 
+    };
+
+    confirmLogin(loginValue, passValue) {
+        if(this.props.users.data) {
+            let logins = this.props.users.data.map(data => data.login);
+            return logins.includes(loginValue) ? this.confirmPassword(loginValue, passValue) : this.credentialsNotconfirmed()
+        }
+    };
+
+    confirmPassword(loginValue, passValue) {
+        let pass = this.props.users.data.map(data => data.password);
+        return pass.includes(passValue) ? this.credentialsConfirmed(loginValue) : this.passwordNotConfirmed(loginValue)
+    };
+
+    passwordNotConfirmed(loginValue) {
+        this.setState({wrongInput: true});
+        this.props.addToInformList(I18n.get('informList.wrongPassword') + `${loginValue}`);
+    };
+
+    credentialsConfirmed(loginValue) {
+        let logged = {login: loginValue, isLogged: true};
+        this.props.userLogged(logged);
+        this.props.addToInformList(I18n.get('informList.userLogged')+`${loginValue}`);
+    };
+
+    credentialsNotconfirmed() {
+        this.setState({wrongInput: true});
+        this.props.addToInformList(I18n.get('informList.wrongCredentials'));
+    };
+
+    changeModalAddUserStatus = (flag) => {
+        this.setState({modalAddUserOpen: !flag});
+    };
+
+    handleLoginChange = (event) => {
+        this.setState({wrongInput: false});
+        this.setState({loginValue: event.target.value});
+    };
+
+    handlePasswordChange = (event) => {
+        this.setState({wrongInput: false});
+        this.setState({passwordValue: event.target.value});
+    };
+
+    modalAddUserWillOpen = (event) => {
+        this.setState({modalAddUserOpen: true});
+    };
+
+    logout = () => {
+        let logged = {login: null, isLogged: false};
+        this.props.userLogged(logged);
+        this.props.addToInformList(I18n.get('informList.userLogout'));
+    }
+
+    renderLoggedContent() {
+        return (
+            <div className="loginClass">
+                <div className="loginWelcome">Welcome, {this.props.isLogged.login}</div>
+                <div className='settingsMenu'>
+                    <SettingsMenu adminLogged={true} logout={this.logout}/>
+                </div>  
+                
+                <div className="hrLoginBottom"></div> 
+            </div>
+        );
+    };
+
+renderNotLoggedContent() {
+    let inputClassName = '';
+    if(this.state.wrongInput){
+        inputClassName = 'loginInputWrong';
     } else {
-        this.credentialsNotconfirmed();
+        inputClassName = 'loginInput';
     }
-    this.setState({
-        loginValue: '',
-        passwordValue: '',
-        idToDelete: null, 
-}); 
-}
-
-encryptCredential(loginValue, passValue) {
-    let encryptedLogin = utils.encrypt(loginValue);
-    let encryptedPassword = utils.encrypt(passValue);
-    this.props.putDataToDB(encryptedLogin, encryptedPassword)
-    alert('added');
-}
-
-credentialsNotconfirmed() {
-    this.props.addToInformList(I18n.get('informList.wrongCredentials'));
-}
-
-changeModalStatus = (flag) => {
-    this.setState({modalOpen: !flag});
-}
-
-handleLoginChange = (event) => {
-    this.setState({loginValue: event.target.value});
-}
-
-handlePasswordChange = (event) => {
-    this.setState({passwordValue: event.target.value});
-}
-
-modalWillOpen = (event) => {
-    this.setState({modalOpen: true});
-  }
-
-// changeRectangleStatus = () => {
-//     let temporaryState = this.state.loadingRectangleActive;
-//     this.setState({loadingRectangleActive: !temporaryState});
-//     this.props.changeRectangleStatus(temporaryState);
-// }
-
-//   renderUsers() {
-//     if(this.props.users.data !== undefined){ //to jest dziwne za pierwszym razem render nie ma users,
-//     if (this.props.users.data.length >0) { // a za drugim juz pobral
-//         return(
-//             <ol>
-//                 {this.props.users.data.map(a=> 
-//                 <li key={a.id}>Id: {a.id} 
-//                   Login: {a.login}  
-//                   {/* <button onClick={this.deleteUser()}>Delete</button> */}
-//                   </li>)}
-//             </ol>
-//         );
-//     }
-//     else return <p>aaaa</p>
-//   }
-// };
-
-
-deleteFromDB(id) {
-    this.setState({modalOpen :true});
-    let objIdToDelete = null;
-    this.props.users.data.forEach(dat => {
-      if (dat.id === Number(id)) {
-        objIdToDelete = dat._id;
-      }
-    });
-    if(objIdToDelete === null){
-      alert('cannot delete id = null');
-      return;
-   } else { 
-    axios.delete("http://localhost:3001/api/deleteUser", {
-      data: {
-        id: objIdToDelete
-      }
-    })
-
-    .catch(function(error){
-                   alert('Error during delete: '+ error);
-    });
-  }
-    this.setState({ idToDelete: null }); 
-  }
-
-  putDataToDB = (login, password) => {
-    this.setState({modalOpen :true});
-    let currentIds = this.props.users.data.map(data => data.id);
-    let idToBeAdded = 0;
-    while (currentIds.includes(idToBeAdded)) {
-      ++idToBeAdded;
-    }
-   // alert('id to be added: ' + idToBeAdded)
-    axios.post("http://localhost:3001/api/putUser", {
-      id: idToBeAdded,
-      login: login,
-      password: password,
-    })
-  };
-
-handleDelete = (event) => {
-    this.setState({idToDelete: event.target.value});
-   // this.deleteFromDB({this.state.idToDelete});
-}
-
-renderUsersLength() {
-    if(this.props.users.data !== undefined) {
-        return <p>{this.props.users.data.length}</p>
-    } else return <p>aaaa</p>;
-}
-
-render(){
-    return(
- <div className="LoginClass">
-<div className="LoginFormClass">
+    return (
+        <div className="loginClass">
+<div className="loginFormClass">
     <form autoComplete="off" onSubmit={this.confirmCredentials}>
-        <input className="loginInput" type="text" name="login" placeholder="login" value={this.state.loginValue} onChange={this.handleLoginChange}></input>
+        <input className={inputClassName} type="text" name="login" placeholder="login" value={this.state.loginValue} onChange={this.handleLoginChange}></input>
         <br></br>
-        <input className="loginInput" type="text" name="password" placeholder="password" value={this.state.passwordValue} onChange={this.handlePasswordChange}></input>
+        <input className={inputClassName} type="text" name="password" placeholder="password" value={this.state.passwordValue} onChange={this.handlePasswordChange}></input>
         <br></br>
-        <input className="loginButton" type="submit" value=">"></input>
+        <input className="loginButton" type="submit" value={I18n.get('button.right')}></input>
     </form>
 </div>
-{/* <input
-            type="text"
-            style={{ width: "200px" }}
-            onChange={this.handleDelete}
-            placeholder="put id of item to delete here"
-          />
-          <button onClick={() => this.deleteFromDB(this.state.idToDelete)}>
-            DELETE
-          </button> */}
-<div>{this.renderUsersLength()}</div>
-    <button className='plusButton' onClick={this.modalWillOpen}>+</button>   
+
+    <button className='plusButton' onClick={this.modalAddUserWillOpen}>{I18n.get('button.plus')}</button>   
           <div className="hrLoginBottom"></div> 
           <div className="modalDiv">
-      <Modal modalOpen={this.state.modalOpen} changeModalStatus={this.changeModalStatus} modalContent={<ModalAddUser/>} modalStyle={modalAddUserStyle}/>
+      <Modal
+        modalOpen={this.state.modalAddUserOpen} 
+        changeModalStatus={this.changeModalAddUserStatus} 
+        modalContent={<ModalAddUser users={this.state.users}/>} 
+        modalStyle={modalAddUserStyle}>
+        </Modal>
       </div>
       </div>
       
+    );
+};
+
+renderContent() {
+    if(this.props.isLogged.login) {
+        return this.renderLoggedContent();
+    } else return  this.renderNotLoggedContent();
+};
+
+render(){
+    return(
+        this.renderContent()
     );
 }
 
@@ -183,13 +163,15 @@ render(){
 const mapStateToProps = (state) => {
     return {
         users: state.users, // tu do zmiennych ktore beda moimi propsami, przypisuje poczatkowy state z reducerow
-        loadingRectangleActive : state.isLoading
+        loadingRectangleActive : state.isLoading,
+        isLogged: state.isLogged
     }
 };
 const mapDispatchToProps = (dispatch) => {
     return {
         fetchData: (url) => dispatch(usersFetchData(url)),
-        addToInformList: (info) => dispatch(addToInformList(info))
+        addToInformList: (info) => dispatch(addToInformList(info)),
+        userLogged: (logged) =>dispatch(isLogged(logged))
     };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Login);

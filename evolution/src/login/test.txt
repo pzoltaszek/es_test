@@ -1,0 +1,48 @@
+
+//   renderUsers() {
+//     if(this.props.users.data !== undefined){ //to jest dziwne za pierwszym razem render nie ma users,
+//     if (this.props.users.data.length >0) { // a za drugim juz pobral
+//         return(
+//             <ol>
+//                 {this.props.users.data.map(a=> 
+//                 <li key={a.id}>Id: {a.id} 
+//                   Login: {a.login}  
+//                   {/* <button onClick={this.deleteUser()}>Delete</button> */}
+//                   </li>)}
+//             </ol>
+//         );
+//     }
+//     else return <p>aaaa</p>
+//   }
+// };
+
+
+deleteFromDB(id) {
+    this.setState({modalAddUserOpen :true});
+    let objIdToDelete = null;
+    this.props.users.data.forEach(dat => {
+      if (dat.id === Number(id)) {
+        objIdToDelete = dat._id;
+      }
+    });
+    if(objIdToDelete === null){
+      alert('cannot delete id = null');
+      return;
+   } else { 
+    axios.delete("http://localhost:3001/api/deleteUser", {
+      data: {
+        id: objIdToDelete
+      }
+    })
+
+    .catch(function(error){
+                   alert('Error during delete: '+ error);
+    });
+  }
+    this.setState({ idToDelete: null }); 
+  }
+
+handleDelete = (event) => {
+    this.setState({idToDelete: event.target.value});
+   // this.deleteFromDB({this.state.idToDelete});
+}

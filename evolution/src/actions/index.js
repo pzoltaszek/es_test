@@ -8,6 +8,10 @@ type: 'IS_LOADNIG',
 isLoading: bool
 });  
 
+export const isLogged = (loged) =>({
+    type: 'IS_LOGGED',
+    loged
+});
 
 let id = 0;
 
@@ -15,7 +19,7 @@ export const addToInformList = (text) => ({
     id: id++,
     type: 'ADD_TO_INFORM_LIST',
     text
-})
+});
 
 export function usersFetchData(url) {
     return (dispatch) => {

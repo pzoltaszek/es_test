@@ -4,9 +4,9 @@ import { connect } from "react-redux";
 import { addToInformList } from '../actions';
 import I18n from '../utils/I18n';
 
-var style = {
+const style = {
     fontSize: '0.8em',
-    color: 'black'
+    color: 'black',
 };
 
 class InformLabel extends React.Component {
@@ -18,73 +18,71 @@ class InformLabel extends React.Component {
         };
     }
 
-informListSlideopen = () => {
-    let tempStatus = this.state.informListSlideOpen;
-    this.setState({informListSlideOpen: !tempStatus});
-}
-
-renderList(classForInformDiv) {
-    let list = this.props.informList;
-    if (!list || list.length < 0) {
-        return null;
+    informListSlideopen = () => {
+        let tempStatus = this.state.informListSlideOpen;
+        this.setState({informListSlideOpen: !tempStatus});
     }
-    if(list.length > 5) {
-        list = list.slice(list.length-5, list.length+1);   
-    }
-    return(
-        <div className={classForInformDiv} style={style}>
-            <ul>
-                {list.map(a=> <li key={a.id}>{a.text}</li>)}
-            </ul>
-        </div>
-        );
-};
 
-renderLastElement() {
-    let length = this.props.informList.length;
-    if (length > 0) {
-        let last = this.props.informList[length-1];
-        return (   
-<div style={style}> {last.text}</div>
-        );
-    } else return null;
-}
-
-renderInformList() {
-    let classForInformDiv ='';
-    let buttonUp = '^';
-    if (this.state.informListSlideOpen) {
-        classForInformDiv = "informListSlideOpen";
+    renderList(classForInformDiv) {
+        let list = this.props.informList;
+        if (!list || list.length < 0) {
+            return null;
+        }
+        if(list.length > 5) {
+            list = list.slice(list.length-5, list.length+1);   
+        }
         return(
-            <div>
-                {this.renderList(classForInformDiv)}
-                <div className="informLabelslideContent">
-                    <button className="informLabelslideOpen" onClick={this.informListSlideopen}>&#709;</button>
-                    {this.renderLastElement()}
-                </div>
+            <div className={classForInformDiv} style={style}>
+                <ul>
+                    {list.map(a=> <li key={a.id}>{a.text}</li>)}
+                </ul>
             </div>
-        ) 
-    } else {
-        classForInformDiv = "informListSlideHide";
-        return (
-            <div>
-               {this.renderList(classForInformDiv)}
-                <div className="informLabelslideContent">
-                    <button className="informLabelslideOpen" onClick={this.informListSlideopen}>{buttonUp}</button>
-                    {this.renderLastElement()}
-                </div>
-            </div>
-        )
+        );
+    };
+
+
+    renderLastElement() {    
+        let length = this.props.informList.length;
+        if (length > 0) {
+            let last = this.props.informList[length-1];
+            return (   
+                <div key={last.id} className="lastElement"> {last.text}</div>
+            );
+        } else return null;
     }
-};
 
+    renderInformList() {
+        let classForInformDiv ='';
+        if (this.state.informListSlideOpen) {
+            classForInformDiv = "informListSlideOpen";
+            return(
+                <div>
+                    {this.renderList(classForInformDiv)}
+                    <div className="informLabelslideContent">
+                        <button className="informLabelslideOpen" onClick={this.informListSlideopen}>&#709;</button>
+                        {this.renderLastElement()}
+                    </div>
+                </div>
+            ) 
+        } else {
+            classForInformDiv = "informListSlideHide";
+            return (
+                <div>
+                    {this.renderList(classForInformDiv)}
+                    <div className="informLabelslideContent">
+                        <button className="informLabelslideOpen" onClick={this.informListSlideopen}>{I18n.get('button.up')}</button>
+                        {this.renderLastElement()}
+                    </div>
+                </div>
+            )
+        }
+    };
 
-render(){
-    return(      
-        <div className="informLabelMain">{this.renderInformList()}</div>
-    );
-}
-
+    render(){
+        return(      
+            <div className="informLabelMain">{this.renderInformList()}</div>
+        );
+    }
 }
 
 const mapStateToProps = (state) => {
