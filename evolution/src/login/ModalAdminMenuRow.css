@@ -1,0 +1,38 @@
+
+.adminMenuUsersTableTr {
+    position: relative;
+    width: 100%;
+    border-bottom: 1px solid black;
+}
+
+.adminMenuUsersTableTr:hover {
+    background-color: rgb(205, 207, 209);
+}
+
+.adminDeleteButton:hover {
+    outline: red auto 5px;
+}
+
+.adminEditButton:hover {
+    outline: blue auto 5px;
+}
+
+.adminDeleteColumn {
+    position: relative;
+    width: 25%;
+}
+
+.adminIdColumn {
+    position: relative;
+    width: 10%;
+}
+
+.adminLoginColumn {
+    position: relative;
+    width: 25%;
+}
+
+.adminPassColumn {
+    position: relative;
+    width: 25%;
+}

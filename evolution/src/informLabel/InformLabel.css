@@ -1,6 +1,8 @@
 .informLabelMain {
   width: 100%;
-  position: fixed;
+  position: absolute;
+  margin: 0px;
+  padding: 0px;
   left: 0;
   top:calc(95% - 75px - 1.2em);
   height: 70px;
@@ -8,7 +10,7 @@
   
 .informLabelslideContent {
   width: 100%;
-  border: 1px solid black;
+  border-top: 1px solid black;
   border-bottom: none;
   position: relative;
   display: flex;

@@ -7,7 +7,6 @@ import Modal from '../utils/Modal';
 import ModalAddUser from './ModalAddUser';
 import SettingsMenu from './SettingsMenu';
 import I18n from '../utils/I18n';
-import settings from '../assets/settingsIcon.png';
 
 const modalAddUserStyle = {
     width: '20%',
@@ -68,6 +67,9 @@ class Login extends Component{
         let logged = {login: loginValue, isLogged: true};
         this.props.userLogged(logged);
         this.props.addToInformList(I18n.get('informList.userLogged')+`${loginValue}`);
+        if (loginValue === "admin") {
+            this.setState({adminLogged: true});
+        }
     };
 
     credentialsNotconfirmed() {
@@ -97,14 +99,17 @@ class Login extends Component{
         let logged = {login: null, isLogged: false};
         this.props.userLogged(logged);
         this.props.addToInformList(I18n.get('informList.userLogout'));
+        if (this.state.adminLogged) {
+            this.setState({adminLogged: false});
+        }
     }
 
     renderLoggedContent() {
         return (
             <div className="loginClass">
-                <div className="loginWelcome">Welcome, {this.props.isLogged.login}</div>
+                <div className="loginWelcome">{I18n.get('commonText.welcome')} {this.props.isLogged.login}</div>
                 <div className='settingsMenu'>
-                    <SettingsMenu adminLogged={true} logout={this.logout}/>
+                    <SettingsMenu adminLogged={this.state.adminLogged} logout={this.logout}/>
                 </div>  
                 
                 <div className="hrLoginBottom"></div> 
@@ -112,53 +117,66 @@ class Login extends Component{
         );
     };
 
-renderNotLoggedContent() {
-    let inputClassName = '';
-    if(this.state.wrongInput){
-        inputClassName = 'loginInputWrong';
-    } else {
-        inputClassName = 'loginInput';
-    }
-    return (
-        <div className="loginClass">
-<div className="loginFormClass">
-    <form autoComplete="off" onSubmit={this.confirmCredentials}>
-        <input className={inputClassName} type="text" name="login" placeholder="login" value={this.state.loginValue} onChange={this.handleLoginChange}></input>
-        <br></br>
-        <input className={inputClassName} type="text" name="password" placeholder="password" value={this.state.passwordValue} onChange={this.handlePasswordChange}></input>
-        <br></br>
-        <input className="loginButton" type="submit" value={I18n.get('button.right')}></input>
-    </form>
-</div>
-
-    <button className='plusButton' onClick={this.modalAddUserWillOpen}>{I18n.get('button.plus')}</button>   
-          <div className="hrLoginBottom"></div> 
-          <div className="modalDiv">
-      <Modal
-        modalOpen={this.state.modalAddUserOpen} 
-        changeModalStatus={this.changeModalAddUserStatus} 
-        modalContent={<ModalAddUser users={this.state.users}/>} 
-        modalStyle={modalAddUserStyle}>
-        </Modal>
-      </div>
-      </div>
+    renderNotLoggedContent() {
+        let inputClassName = '';
+        if(this.state.wrongInput){
+            inputClassName = 'loginInputWrong';
+        } else {
+            inputClassName = 'loginInput';
+        }
+        return (
+            <div className="loginClass">
+                <div className="loginFormClass">
+                    <form autoComplete="off" onSubmit={this.confirmCredentials}>
+                        <input 
+                            className={inputClassName} 
+                            type="text" name="login" 
+                            placeholder="login" 
+                            value={this.state.loginValue} 
+                            onChange={this.handleLoginChange}>
+                        </input>
+                        <br></br>
+                        <input 
+                            className={inputClassName} 
+                            type="text" name="password" 
+                            placeholder="password" 
+                            value={this.state.passwordValue} 
+                            onChange={this.handlePasswordChange}></input>
+                        <br></br>
+                        <input 
+                            className="loginButton" 
+                            type="submit" 
+                            value={I18n.get('button.right')}>
+                        </input>
+                    </form>
+                </div>
+                <button className='plusButton' onClick={this.modalAddUserWillOpen}>{I18n.get('button.plus')}</button>   
+                <div className="hrLoginBottom"></div> 
+                <div className="modalDiv">
+                    <Modal
+                        modalOpen={this.state.modalAddUserOpen} 
+                        changeModalStatus={this.changeModalAddUserStatus} 
+                        modalContent={<ModalAddUser users={this.state.users} changeModalStatus={this.changeModalAddUserStatus} />} //MoadlAddUser props = login (not Modal)
+                        modalStyle={modalAddUserStyle}>
+                    </Modal>
+                </div>
+            </div>
       
-    );
+        );
+    };
+
+    renderContent() {
+        if(this.props.isLogged.login) {
+            return this.renderLoggedContent();
+        } else return this.renderNotLoggedContent();
+    };
+
+    render(){
+        return(
+            this.renderContent()
+        );
+    };
 };
-
-renderContent() {
-    if(this.props.isLogged.login) {
-        return this.renderLoggedContent();
-    } else return  this.renderNotLoggedContent();
-};
-
-render(){
-    return(
-        this.renderContent()
-    );
-}
-
-}
 
 const mapStateToProps = (state) => {
     return {

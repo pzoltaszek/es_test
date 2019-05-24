@@ -1,10 +1,4 @@
-const INITIAL_STATE = 
-    {
-       login: 'yeti',
-      isLogged: true
-    };
-
-export const isLogged = (state = INITIAL_STATE, action) => {
+export const isLogged = (state = [], action) => {
     switch (action.type) {
       case 'IS_LOGGED':
         return {

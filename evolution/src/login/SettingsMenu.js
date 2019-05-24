@@ -3,7 +3,7 @@ import './SettingsMenu.css';
 import Modal from '../utils/Modal';
 import ModalAdminMenu from './ModalAdminMenu';
 import I18n from '../utils/I18n';
-import settings from '../assets/settingsIcon.png';
+import settingsIcon from '../assets/settingsIcon.png';
 
 const modalAdminMenuStyle = {
     width: '70%',
@@ -17,11 +17,6 @@ class SettingsMenu extends Component{
             modalAdminMenuOpen: false
         };
     };
-
-    componentDidMount() {
-        let slideHidden = setTimeout(this.settingsWillUnslide(), 1000);
-        this.setState({slideHidden: slideHidden});
-    }
 
     settingsWillSlide = () => {
         // let tempStatus = this.state.slideSettingsOpen;
@@ -45,7 +40,7 @@ class SettingsMenu extends Component{
         let adminMenu = null;
         let slideSettingsHidden ='slideSettingsContent3';
         if(this.props.adminLogged) {
-            adminMenu = <li key="2" className="SettingsList" onClick={this.modalAdminMenuWillOpen}>admin menu</li>;
+            adminMenu = <li key="2" className="SettingsList" onClick={this.modalAdminMenuWillOpen}>{I18n.get('commonText.adminMenu')}</li>;
         }
         if(this.state.slideSettingsOpen){
             slideSettingsHidden ='slideSettingsContent2';
@@ -54,34 +49,33 @@ class SettingsMenu extends Component{
             <div className="slideSettings" onMouseEnter={this.settingsWillSlide} onMouseLeave={this.settingsWillUnslide}>
                 <div className="slideSettingsContent1">
                     <button className='settingsButton'>
-                        <img alt='!' src={settings} height="13" width="13"/>
+                        <img alt='!' src={settingsIcon} height="13" width="13"/>
                     </button>
                     <div className={slideSettingsHidden}>
-                    <ul>
-                        <li key="1" className="SettingsList">edit profile</li>
-                        {adminMenu}
-                        <li key="3" className="SettingsList" onClick={this.props.logout}>logout</li>
-                    </ul>
-                </div>  
+                        <ul>
+                            <li key="1" className="SettingsList">{I18n.get('commonText.editProfile')}</li>
+                            {adminMenu}
+                            <li key="3" className="SettingsList" onClick={this.props.logout}>{I18n.get('commonText.logout')}</li>
+                        </ul>
+                    </div>  
                 </div>
                 <div className="modalDiv">
-      <Modal
-        modalOpen={this.state.modalAdminMenuOpen} 
-        changeModalStatus={this.changeModalAdminMenuStatus} 
-        modalContent={<ModalAdminMenu users={this.state.users}/>} 
-        modalStyle={modalAdminMenuStyle}>
-        </Modal>
-      </div>
-                        
+                    <Modal
+                        modalOpen={this.state.modalAdminMenuOpen} 
+                        changeModalStatus={this.changeModalAdminMenuStatus} 
+                        modalContent={<ModalAdminMenu users={this.state.users}/>} 
+                        modalStyle={modalAdminMenuStyle}>
+                    </Modal>
+                </div>                  
             </div>
-            );
-    
-        }
+            );   
+    }
+
     render(){
         return(
             this.renderSettingsContent()
         );
     }
-} 
+}; 
 
 export default SettingsMenu;

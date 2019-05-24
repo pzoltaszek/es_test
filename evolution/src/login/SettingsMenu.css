@@ -9,7 +9,7 @@
 .slideSettingsContent2 {
     position: absolute;
     margin: none;
-    left: 89.5%;
+    left: 89.6%;
     width: 10%;
     border: 1px solid black;
     height: 70px;
@@ -18,7 +18,7 @@
 
 .slideSettingsContent3 {
     position: absolute;
-    left: 89.5%;
+    left: 89.6%;
     width: 10%;
     border: 1px solid black;
     height: 70px;
@@ -29,7 +29,7 @@
 .settingsButton {
     position: absolute;
     left: 98%;
-    top: 0.5%;
+    top: 1%;
     padding-left: 4px;
     padding-right: 4px;
 }

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import utils from '../utils/Utils';
 import { connect } from "react-redux";
-import { usersFetchData, addToInformList } from "../actions";
+import { addToInformList, isLogged } from "../actions";
 import axios from "axios";
 import I18n from '../utils/I18n';
 
@@ -76,12 +76,15 @@ class ModalAddUser extends Component{
         while (currentIds.includes(idToBeAdded)) {
           ++idToBeAdded;
         }
-        // axios.post(I18n.get('dataBase.userPost'), {
-        //   id: idToBeAdded,
-        //   login: login,
-        //   password: password,
-        // });
+        axios.post(I18n.get('dataBase.userPost'), {
+          id: idToBeAdded,
+          login: login,
+          password: password,
+        });
         this.props.addToInformList(I18n.get('informList.addUser'));
+        let logged = {login: login, isLogged: true};
+        this.props.userLogged(logged);
+        this.props.changeModalStatus(true);
     };
 
     renderContent() {
@@ -121,8 +124,8 @@ const mapStateToProps = (state) => {
 };
 const mapDispatchToProps = (dispatch) => {
     return {
-        fetchData: (url) => dispatch(usersFetchData(url)), //actions
-        addToInformList: (info) => dispatch(addToInformList(info))
+        addToInformList: (info) => dispatch(addToInformList(info)),
+        userLogged: (logged) =>dispatch(isLogged(logged)) //actions
     };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(ModalAddUser);
