@@ -1,0 +1,38 @@
+
+.userTable {
+    position: relative;
+    width: 100%;
+    border-bottom: 1px solid black;
+}
+
+.userTableTr:hover {
+    background-color: rgb(205, 207, 209);
+}
+
+.userEditButton:hover {
+    outline: red auto 5px;
+}
+
+.userEditButton:hover {
+    outline: blue auto 5px;
+}
+
+.userDeleteColumn {
+    position: relative;
+    width: 25%;
+}
+
+.userIdColumn {
+    position: relative;
+    width: 10%;
+}
+
+.userPasswordColumn {
+    position: relative;
+    width: 25%;
+}
+
+.userPasswordColumn {
+    position: relative;
+    width: 25%;
+}

@@ -13,7 +13,7 @@ class App extends Component {
     super (props)
     this.state = {
     };
-  }
+  };
 
   componentDidMount() {
     let date = new Date();
@@ -22,16 +22,15 @@ class App extends Component {
 
   render() {
     return (
-       <div className="App">
+      <div className="App">
         <Login/>
         <Board/>
         <InformLabel/>
         <LoadingRectangle active={this.props.loadingRectangleActive} />
       </div>      
     );
-  }
-}
-
+  };
+};
 
 const mapStateToProps = (state) => {
   return {

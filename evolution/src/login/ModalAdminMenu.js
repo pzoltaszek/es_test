@@ -14,7 +14,7 @@ class ModalAdminMenu extends Component{
             wrongInput: false,
             users:[]
         };
-    }
+    };
 
     componentDidMount() {
         this.setState({users: this.props.users})
@@ -38,7 +38,7 @@ class ModalAdminMenu extends Component{
                     </tr>
                 </thead>
                 <tbody>             
-                {this.props.users.data.map(data=>
+                {this.props.users.data.slice(1, this.props.users.data.length).map(data=>
                     <ModalAdminMenuRow 
                         key={data.id}
                         userData = {data}>

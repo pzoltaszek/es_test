@@ -12,17 +12,18 @@ class ModalAdminMenuRow extends Component{
         this.state = {
             adminEditedLoginValue: '',
             confirmDelete: false,
-            startEdit: false
+            startEdit: false,
+            confirmDeleteTime: 3,
         };
     };
 
-    confirmAdminEditedCredentials = () => {
+    confirmAdminEditedCredentials = (id) => {
         let loginValue = this.state.adminEditedLoginValue;
         if (utils.loginValidator(loginValue)){
             if(this.checkLoginAlreadyExists(loginValue)){
                 this.loginAlreadyExists(loginValue);
             } else {
-                this.encryptNewCredential(loginValue);
+                this.updateUserLogin(loginValue, id);
             }
         } else {
             this.newCredentialsNotconfirmed();
@@ -32,9 +33,30 @@ class ModalAdminMenuRow extends Component{
         }); 
     };
     
-    encryptNewCredential(loginValue) {
-        let encryptedLogin = utils.encrypt(loginValue);
-       // this.UPDATE DB(encryptedLogin)
+    updateUserLogin(loginValue, id) {
+        let objIdToUpdate = null;
+        this.props.users.data.forEach(dat => {
+            if (dat.id === Number(id)) {
+                objIdToUpdate = dat._id;
+            }
+        });
+        if(objIdToUpdate === null){
+            this.props.addToInformList(I18n.get('informlistAdmin.errorId'));
+            return;
+        } else { 
+            this.updateDB(loginValue, objIdToUpdate);          
+        }
+    };
+
+    updateDB(loginValue, objIdToUpdate) {
+        axios.post(I18n.get('dataBase.userUpdate'), {
+            id: objIdToUpdate,
+            update: { login: loginValue },
+        })
+        .catch(function(){
+            this.props.addToInformList(I18n.get('informlistAdmin.errorDb'));
+        });
+        this.props.addToInformList(I18n.get('informlistAdmin.userEditSuccess'));
     };
 
     checkLoginAlreadyExists(loginValue) {
@@ -67,11 +89,24 @@ class ModalAdminMenuRow extends Component{
 
     confirmEditUser = (id) => {
         this.setState({startEdit: false});
-        this.confirmAdminEditedCredentials();
-    }
+        this.confirmAdminEditedCredentials(id);
+    };
 
-    confirmDeleteStatus =() => {
+    confirmDeleteStatus() {
         this.setState({confirmDelete: true});
+        this.intervalDeleteTimer = setInterval(() => this.confirmDeleteTimer(),1000);
+    };
+
+    confirmDeleteTimer() {
+        if (this.state.confirmDeleteTime <= 0) {
+            clearInterval(this.intervalDeleteTimer);
+            this.setState({
+                confirmDeleteTime: 3,
+                confirmDelete: false
+            });
+        }else {
+            this.setState(state => ({confirmDeleteTime: state.confirmDeleteTime -1}));
+        }    
     };
 
     startEditedStatus = () => {
@@ -89,8 +124,8 @@ class ModalAdminMenuRow extends Component{
                 id: objIdToDelete
             }
         })   
-        .catch(function(error){
-            this.props.addToInformList(I18n.get('informlistAdmin.errorDb') + error);
+        .catch(function(){
+            this.props.addToInformList(I18n.get('informlistAdmin.errorDb'));
         });
         this.props.addToInformList(I18n.get('informlistAdmin.deleteSuccess'));
         this.setState({confirmDelete: false});
@@ -101,7 +136,7 @@ class ModalAdminMenuRow extends Component{
         let confirmDeleteButton = null;
         let editLoginColumn = <td className="adminLoginColumn" >{user.login}</td>
         if(this.state.confirmDelete) {
-            confirmDeleteButton = <button className="adminDeleteButton" onClick={() => this.confirmDeleteUser(this.props.userData.id)}>confirm</button>
+            confirmDeleteButton = <button className="adminDeleteButton" onClick={() => this.confirmDeleteUser(this.props.userData.id)}>confirm {this.state.confirmDeleteTime}</button>
         }
         if(this.state.startEdit) {
             editLoginColumn = 
@@ -129,7 +164,7 @@ class ModalAdminMenuRow extends Component{
                 <td className="adminPassColumn" >{user.password}</td>
                 <td><button className="adminEditButton"  onClick={this.startEditedStatus}>edit</button></td>
                 <td className="adminDeleteColumn">
-                    <button key={user.id} className="adminDeleteButton" onClick={this.confirmDeleteStatus}>x</button> 
+                    <button key={user.id} className="adminDeleteButton" onClick={() => this.confirmDeleteStatus()}>x</button> 
                     {confirmDeleteButton}
                 </td>                                   
             </tr>
@@ -141,8 +176,7 @@ class ModalAdminMenuRow extends Component{
             this.renderUsersRow()
         );
     };
-}
-
+};
 
 const mapStateToProps = (state) => {
     return {

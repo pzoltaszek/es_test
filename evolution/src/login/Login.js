@@ -22,7 +22,7 @@ class Login extends Component{
             modalAddUserOpen: false,
             wrongInput: false,
             users:[],
-            adminLogged: true
+            adminLogged: false,
         };
     };
 
@@ -82,13 +82,17 @@ class Login extends Component{
     };
 
     handleLoginChange = (event) => {
-        this.setState({wrongInput: false});
-        this.setState({loginValue: event.target.value});
+        this.setState({
+            wrongInput: false,
+            loginValue: event.target.value
+        });
     };
 
     handlePasswordChange = (event) => {
-        this.setState({wrongInput: false});
-        this.setState({passwordValue: event.target.value});
+        this.setState({
+            wrongInput: false,
+            passwordValue: event.target.value
+        });
     };
 
     modalAddUserWillOpen = (event) => {
@@ -99,10 +103,8 @@ class Login extends Component{
         let logged = {login: null, isLogged: false};
         this.props.userLogged(logged);
         this.props.addToInformList(I18n.get('informList.userLogout'));
-        if (this.state.adminLogged) {
-            this.setState({adminLogged: false});
-        }
-    }
+        this.setState({adminLogged: false});
+    };
 
     renderLoggedContent() {
         return (
@@ -150,6 +152,7 @@ class Login extends Component{
                         </input>
                     </form>
                 </div>
+                <div>{this.state.sec}</div>
                 <button className='plusButton' onClick={this.modalAddUserWillOpen}>{I18n.get('button.plus')}</button>   
                 <div className="hrLoginBottom"></div> 
                 <div className="modalDiv">

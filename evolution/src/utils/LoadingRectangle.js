@@ -13,16 +13,16 @@ class LoadingRectangle extends Component {
         return (
           <div className="loadingRectangleBody">
             <div className="LoadingRectangleDiv">
-                <div id="line_b" className="line_h"></div>
-                <div id="line_r" className="line_v"></div>
-                <div id="line_t" className="line_h"></div> 
-                <div id="line_l" className="line_v"></div>
-              </div>             
-            </div>
-          );
-        }
-        else return null;
-    }
-  }
+              <div id="line_b" className="line_h"></div>
+              <div id="line_r" className="line_v"></div>
+              <div id="line_t" className="line_h"></div> 
+              <div id="line_l" className="line_v"></div>
+            </div>             
+          </div>
+        );
+      }
+      else return null;
+    };
+  };
   
   export default LoadingRectangle;

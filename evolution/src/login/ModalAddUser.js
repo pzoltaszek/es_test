@@ -14,11 +14,11 @@ class ModalAddUser extends Component{
             wrongInput: false,
             users:[]
         };
-    }
+    };
 
     componentDidMount() {
         this.setState({users: this.props.users})
-    }
+    };
 
     confirmNewCredentials = (event) => {
         event.preventDefault();
@@ -37,38 +37,38 @@ class ModalAddUser extends Component{
             newLoginValue: '',
             newPasswordValue: '',
         }); 
-    }
+    };
     
     encryptNewCredential(loginValue, passValue) {
         let encryptedLogin = utils.encrypt(loginValue);
         let encryptedPassword = utils.encrypt(passValue);
         this.putDataToDB(encryptedLogin, encryptedPassword)
-    }
+    };
 
     checkLoginAlreadyExists(loginValue) {
         let logins = this.state.users.data.map(data => data.login);
         return logins.includes(loginValue);
-    }
+    };
 
     loginAlreadyExists(loginValue) {
         this.props.addToInformList(I18n.get('informList.loginExists') + `: "${loginValue}"`);
         this.setState({wrongInput: true});
-    }
+    };
     
     newCredentialsNotconfirmed() {
         this.props.addToInformList(I18n.get('informList.wrongCredentials'));
         this.setState({wrongInput: true});
-    }
+    };
 
     handleNewLoginChange = (event) => {
         this.setState({wrongInput: false});
         this.setState({newLoginValue: event.target.value});        
-    }
+    };
     
     handleNewPasswordChange = (event) => {
         this.setState({wrongInput: false});
         this.setState({newPasswordValue: event.target.value});  
-    }
+    };
 
     putDataToDB = (login, password) => {
         let currentIds = this.state.users.data.map(data => data.id);
@@ -106,15 +106,14 @@ class ModalAddUser extends Component{
                 </form>
             </div>
         );
-    }
+    };
 
     render() {
         return(
             this.renderContent()
         );
-    }
+    };
 }
-
 
 const mapStateToProps = (state) => {
     return {

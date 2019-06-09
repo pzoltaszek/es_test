@@ -1,21 +1,22 @@
 var utils = {
     loginValidator : function loginValidator(login) {
-           if(login === '' || login === null || login === undefined) {
-               return false;
-           }
-           return true;
+        if(login === '' || login === null || login === undefined) {
+            return false;
+        }
+        return true;
    },
    
-   passwordValidator : function passwordValidator(pass){
-    if(pass === '' || pass === null || pass === undefined) {
+    passwordValidator : function passwordValidator(pass){
+        if(pass === '' || pass === null || pass === undefined) {
         return false;
-    }
-    return true;
-   },
+        }
+        return true;
+    },
+
    encrypt: function encrypt(text){
-       return text;
-       //TODO napisac szyfrowanie
+        return text;
+       //TODO
    }
-    };
+};
    
-    export default utils 
+export default utils 

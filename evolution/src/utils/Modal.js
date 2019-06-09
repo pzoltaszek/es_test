@@ -40,6 +40,6 @@ class Modal extends Component {
                 </div>          
             );
         } else return null;
-    }
-}  
+    };
+};  
 export default Modal;

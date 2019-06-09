@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './SettingsMenu.css';
 import Modal from '../utils/Modal';
 import ModalAdminMenu from './ModalAdminMenu';
+import ModalUserEdit from './ModalUserEdit';
 import I18n from '../utils/I18n';
 import settingsIcon from '../assets/settingsIcon.png';
 
@@ -10,11 +11,17 @@ const modalAdminMenuStyle = {
     height: '50%'
 };
 
+const modalUserEditStyle = {
+    width: '50%',
+    height: '50%'
+};
+
 class SettingsMenu extends Component{
     constructor(props) {
         super(props)
         this.state = {
-            modalAdminMenuOpen: false
+            modalAdminMenuOpen: false,
+            modalUserEditOpen: false,
         };
     };
 
@@ -32,8 +39,17 @@ class SettingsMenu extends Component{
         this.settingsWillUnslide();
     };
 
+    modalUserEditWillOpen = (event) => {
+        this.setState({modalUserEditOpen: true});
+        this.settingsWillUnslide();
+    };
+
     changeModalAdminMenuStatus = (flag) => {
         this.setState({modalAdminMenuOpen: !flag});
+    };
+
+    changeModalUserEditStatus = (flag) => {
+        this.setState({modalUserEditOpen: !flag});
     };
 
     renderSettingsContent() {
@@ -53,7 +69,7 @@ class SettingsMenu extends Component{
                     </button>
                     <div className={slideSettingsHidden}>
                         <ul>
-                            <li key="1" className="SettingsList">{I18n.get('commonText.editProfile')}</li>
+                            <li key="1" className="SettingsList" onClick={this.modalUserEditWillOpen}>{I18n.get('commonText.editProfile')}</li>
                             {adminMenu}
                             <li key="3" className="SettingsList" onClick={this.props.logout}>{I18n.get('commonText.logout')}</li>
                         </ul>
@@ -63,13 +79,21 @@ class SettingsMenu extends Component{
                     <Modal
                         modalOpen={this.state.modalAdminMenuOpen} 
                         changeModalStatus={this.changeModalAdminMenuStatus} 
-                        modalContent={<ModalAdminMenu users={this.state.users}/>} 
+                        modalContent={<ModalAdminMenu/>} 
                         modalStyle={modalAdminMenuStyle}>
                     </Modal>
-                </div>                  
+                </div>   
+                <div className="modalUserEditDiv">
+                    <Modal
+                        modalOpen={this.state.modalUserEditOpen} 
+                        changeModalStatus={this.changeModalUserEditStatus} 
+                        modalContent= {<ModalUserEdit/>}
+                        modalStyle={modalUserEditStyle}>
+                    </Modal>
+                </div>               
             </div>
-            );   
-    }
+        );   
+    };
 
     render(){
         return(

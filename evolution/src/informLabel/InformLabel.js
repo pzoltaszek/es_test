@@ -16,12 +16,12 @@ class InformLabel extends React.Component {
             informList: [],
             informListSlideOpen: false
         };
-    }
+    };
 
     informListSlideopen = () => {
         let tempStatus = this.state.informListSlideOpen;
         this.setState({informListSlideOpen: !tempStatus});
-    }
+    };
 
     renderList(classForInformDiv) {
         let list = this.props.informList;
@@ -49,7 +49,7 @@ class InformLabel extends React.Component {
                 <div key={last.id} className="lastElement"> {last.text}</div>
             );
         } else return null;
-    }
+    };
 
     renderInformList() {
         let classForInformDiv ='';
@@ -82,7 +82,7 @@ class InformLabel extends React.Component {
         return(      
             <div className="informLabelMain">{this.renderInformList()}</div>
         );
-    }
+    };
 }
 
 const mapStateToProps = (state) => {

@@ -29,10 +29,10 @@ export function usersFetchData(url) {
                 if (!response.ok) {
                     throw Error(response.statusText);
                 }
-                dispatch(isLoadaing(false));
-                return response;
+        dispatch(isLoadaing(false));
+            return response;
             })
             .then((response) => response.json())
             .then((users) => dispatch(usersFetched(users)));
     };
-}
+};
