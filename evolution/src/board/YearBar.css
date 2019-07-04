@@ -1,0 +1,21 @@
+.YearBarContent {
+    position: absolute;
+    width: 70%;
+    background-color: white;
+    border: 1px solid black;
+    align-items: left;
+    margin: 3px;
+}
+
+.YearBarStripe {
+    position: relative;
+    height: 90%;
+    display:block;
+    margin: 3px;
+    background-color: gray;
+    color: white;
+}
+.buttonForward{
+    position: absolute;
+    left: 75%;
+}

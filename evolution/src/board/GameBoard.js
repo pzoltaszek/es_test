@@ -3,6 +3,7 @@ import './GameBoard.css';
 import { connect } from "react-redux";
 import { usersFetchData } from "../actions";
 import I18n from '../utils/I18n';
+import YearBar from './YearBar';
 
 
 class GameBoard extends Component {
@@ -43,8 +44,9 @@ class GameBoard extends Component {
     render() {
         return (
             <div className="GameBoard">
-                <div>Pasek lat</div>   
-                <div>{this.renderSlide()}</div>
+                <YearBar/>   
+                <br></br>
+                <div className="GameBoardContent">{this.renderSlide()}</div>
             </div>     
         );
     };

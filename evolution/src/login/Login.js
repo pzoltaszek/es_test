@@ -27,6 +27,8 @@ class Login extends Component{
     };
 
     componentDidMount() {
+        let logged = {login: 'yeti', isLogged: true};
+        this.props.userLogged(logged);
         this.props.fetchData(I18n.get('dataBase.userGet'));
         this.setState({users: this.props.users.data});
     };

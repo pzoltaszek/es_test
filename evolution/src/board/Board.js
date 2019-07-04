@@ -12,7 +12,7 @@ class Board extends Component {
         this.state = {
             isUserLogged: false,
             introOpen: false,
-            gameBoardActive: false,    
+            gameBoardActive: true,    
             introButton: true,   
       };
     };
