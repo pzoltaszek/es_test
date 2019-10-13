@@ -23,7 +23,7 @@ export const addToInformList = (text) => ({
 
 export function usersFetchData(url) {
     return (dispatch) => {
-        dispatch(isLoadaing(true));
+        dispatch(isLoadaing(false));
         fetch(url)
             .then((response) => {
                 if (!response.ok) {

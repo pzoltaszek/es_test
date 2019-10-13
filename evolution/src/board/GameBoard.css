@@ -1,3 +1,39 @@
 .GameBoardContent {
     margin-top: 1%;
+    width: 30%;
+    margin: 1rem;
+}
+
+.GameBoardContainer {
+    display: flex;
+}
+
+
+.slideContent1 {
+    border: 1px solid black;
+}
+
+.slideContent2 {
+    border: 1px solid black;
+    height: 70px;
+    animation: showSlide 0.8s 1;
+}
+
+.slideContent3 {
+    border: 1px solid black;
+    height: 70px;
+    visibility: hidden;
+    animation: hideSlide 0.8s 1;
+}
+
+@keyframes showSlide {
+    0% {clip-path: inset(0px 0% 100% 0px);}
+    100% {clip-path: inset(0px 0% 0% 0px);}
+}
+
+@keyframes hideSlide {
+    0% {clip-path: inset(0px 0% 0% 0px);
+      visibility: visible}
+    100% {clip-path: inset(0px 0% 100% 0px);
+      visibility: hidden}
 }

@@ -46,7 +46,11 @@ class GameBoard extends Component {
             <div className="GameBoard">
                 <YearBar/>   
                 <br></br>
-                <div className="GameBoardContent">{this.renderSlide()}</div>
+                <div className="GameBoardContainer">
+                    <div className="GameBoardContent">{this.renderSlide()}</div>
+                    <div className="GameBoardContent">{this.renderSlide()}</div>
+                    <div className="GameBoardContent">{this.renderSlide()}</div>
+                </div>
             </div>     
         );
     };

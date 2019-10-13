@@ -58,19 +58,17 @@
 }
 
 .slideContent1 {
-    width: 20%;
+   margin: 1rem;
     border: 1px solid black;
 }
 
 .slideContent2 {
-    width: 20%;
     border: 1px solid black;
     height: 70px;
     animation: showSlide 0.8s 1;
 }
 
 .slideContent3 {
-    width: 20%;
     border: 1px solid black;
     height: 70px;
     visibility: hidden;

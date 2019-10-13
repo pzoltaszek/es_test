@@ -29,7 +29,7 @@ class YearBar extends Component {
         return (
             <div>
             <div className='YearBarContent'>
-                <div className ='YearBarStripe' style={stripeStyle}>{this.state.actualAge} &#160;
+                <div className ='YearBarStripe' style={stripeStyle}>{this.state.actualAge/1000000} &#160;
                 </div>
                 
             </div>
