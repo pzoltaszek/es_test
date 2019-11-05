@@ -6,7 +6,7 @@ export const usersFetched = (users) => ({
 export const isLoadaing = (bool) => ({
 type: 'IS_LOADNIG',
 isLoading: bool
-});  
+});
 
 export const isLogged = (loged) =>({
     type: 'IS_LOGGED',
@@ -23,7 +23,7 @@ export const addToInformList = (text) => ({
 
 export function usersFetchData(url) {
     return (dispatch) => {
-        dispatch(isLoadaing(false));
+        dispatch(isLoadaing(true));
         fetch(url)
             .then((response) => {
                 if (!response.ok) {

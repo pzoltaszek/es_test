@@ -2,11 +2,14 @@ const mongoose = require("mongoose");
 const express = require("express");
 const bodyParser = require("body-parser");
 const logger = require("morgan");
-const User = require ("./Entities/User");
+const User = require("./Entities/User");
+const cors = require("cors");
 
 const API_PORT = 3001;
 const app = express();
 const router = express.Router();
+//disable CORS policy
+app.use(cors());
 
 // this is our MongoDB database
 const dbRoute = "mongodb://pzoltaszek:P1i2o3t4r5@ds145194.mlab.com:45194/pzoltaszek_es";
@@ -36,7 +39,7 @@ router.get("/getUser", (req, res) => {
   User.find((err, user) => {
     if (err) {
       return res.json({ success: false, error: err });
-    } 
+    }
     return res.json({ success: true, data: user });
   });
 });

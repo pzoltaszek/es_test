@@ -13,10 +13,10 @@ class Board extends Component {
             isUserLogged: false,
             introOpen: false,
             gameBoardActive: true,    // mozna modyfikowac default: false
-            introButton: true,   
+            introButton: true,
       };
     };
-   
+
     introWillOpen = (event) => {
         this.setState({introOpen: true});
     };
@@ -47,12 +47,12 @@ class Board extends Component {
                     <div className="Boardheader">
                         <br></br>
                         {introButton}
-                    </div>   
+                    </div>
                     <Intro introOpen={this.state.introOpen} closeIntro={this.closeIntro} startGame={this.startGame}/>
-                </div>     
+                </div>
             );
         }
-       
+
     };
 
     render() {

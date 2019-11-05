@@ -26,7 +26,6 @@ class SettingsMenu extends Component{
     };
 
     settingsWillSlide = () => {
-        // let tempStatus = this.state.slideSettingsOpen;
         this.setState({slideSettingsOpen: true});
     };
 

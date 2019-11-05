@@ -11,6 +11,8 @@
   "license": "ISC",
   "dependencies": {
     "concurrently": "^4.1.0",
+    "cors": "^2.8.5",
+    "react": "^16.10.2",
     "react-redux": "^7.0.2",
     "react-router": "^5.0.0",
     "react-router-dom": "^5.0.0",
